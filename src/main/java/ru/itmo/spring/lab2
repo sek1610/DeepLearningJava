@@ -51,4 +51,23 @@ public class lab2 {
             return out;
         }
     }
+    public static class Calculation {
+        public Double[] out(String[] in) {
+            Double[] out = new Double[3];
+            if (in[0].equals(" C") || in[0].equals(" c") || in[0].equals(" С") || in[0].equals(" с")) {
+                out[0] = Double.parseDouble(in[1]);
+                out[1] = Double.parseDouble(in[1]) +273;
+                out[2] = Double.parseDouble(in[1])*1.8+32;}
+            if (in[0].equals(" К") || in[0].equals(" K") || in[0].equals(" k") || in[0].equals(" к")) {
+                out[0] = Double.parseDouble(in[1])-273;
+                out[1] = Double.parseDouble(in[1]);
+                out[2] = Double.parseDouble(in[1])*1.8-459;}
+            if (in[0].equals(" F") || in[0].equals(" f")) {
+                out[0] = (Double.valueOf(in[1])-32)/1.8;
+                out[1] = (Double.valueOf(in[1])-32)/1.8+273;
+                out[2] = Double.valueOf(in[1]);
+            }
+            return out;
+        }
+    }
 }
