@@ -1,1 +1,73 @@
+package org.example.lab2;
 
+public class lab2 {
+
+    public static void main(String[] args) {
+        System.out.println("Для работы программы необходимо ввести число и поставить букву, обозначающую единицу измерения. Так, Кельвины обозначаются К или к. Градусы цельсия С или с. Градусы Фаренгейта F или f. В русской или английской раскладке.");
+        Converter converter = Converter.getInstance();
+        Output out = new Output();
+        out.out(converter.convert("27 С"));
+        out.out(converter.convert("300 K"));
+        out.out(converter.convert("50 F"));
+    }
+    public static class Output {
+        public void out(Double[] in) {
+                System.out.println("Перевод значения из одной системы в другую");
+                System.out.println("В градусах Цельсия: " + in[0]);
+                System.out.println("В Кельвинах: " + in[1]);
+                System.out.println("В градусах Фаренгейта: " + in[2]);
+        }
+    }
+    public static class Converter {
+
+        private static final Converter INSTANCE = new Converter();
+
+        public static Converter getInstance() {
+            return INSTANCE;
+        }
+
+        public Double[] convert(String value) {
+            org.example.lab2.Value_Name input = Value_Name.getInstance();
+            String[] in;
+            in = input.in(value);
+            Calculation result = new Calculation();
+            Double[] result1 = result.out(in);
+            return result1;
+        }
+    }
+    public static class Value_Name {
+        private static final org.example.lab2.Value_Name INSTANCE = new org.example.lab2.Value_Name();
+
+        public static org.example.lab2.Value_Name getInstance() {
+            return INSTANCE;
+        }
+
+        public String[] in(String value) {
+            String Name = value.replaceAll("\\d", "");
+            String Num = value.replaceAll("[^\\d.]+", "");
+            String[] out = new String[2];
+            out[0] = Name;
+            out[1] = Num;
+            return out;
+        }
+    }
+    public static class Calculation {
+        public Double[] out(String[] in) {
+            Double[] out = new Double[3];
+            if (in[0].equals(" C") || in[0].equals(" c") || in[0].equals(" С") || in[0].equals(" с")) {
+                out[0] = Double.parseDouble(in[1]);
+                out[1] = Double.parseDouble(in[1]) +273;
+                out[2] = Double.parseDouble(in[1])*1.8+32;}
+            if (in[0].equals(" К") || in[0].equals(" K") || in[0].equals(" k") || in[0].equals(" к")) {
+                out[0] = Double.parseDouble(in[1])-273;
+                out[1] = Double.parseDouble(in[1]);
+                out[2] = Double.parseDouble(in[1])*1.8-459;}
+            if (in[0].equals(" F") || in[0].equals(" f")) {
+                out[0] = (Double.valueOf(in[1])-32)/1.8;
+                out[1] = (Double.valueOf(in[1])-32)/1.8+273;
+                out[2] = Double.valueOf(in[1]);
+            }
+            return out;
+        }
+    }
+}
